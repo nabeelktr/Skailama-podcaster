@@ -7,6 +7,8 @@ import { errorHandler } from "@nabeelktr/error-handler";
 import { limiter } from "./utils/rateLimitter.js";
 import { connectDB } from "./config/mongodb.js";
 import "dotenv/config"
+import projectRoute from "./routes/projectRoute.js";
+import widgetRoute from "./routes/widgetRoute.js";
 
 class App {
 
@@ -33,6 +35,8 @@ class App {
 
   routes() {
     this.app.use("/api/v1/user", userRoute);
+    this.app.use("/api/v1/project", projectRoute);
+    this.app.use("/api/v1/widget", widgetRoute);
   }
 
   startServer(port) {

@@ -19,7 +19,7 @@ const controller = new userController(services);
 userRoute.post('/register', controller.register)
 userRoute.post('/login', controller.login)
 userRoute.post('/logout', controller.logout)
-userRoute.get('/me', protect, controller.getUser)
+userRoute.get('/', protect, controller.getUser)
 userRoute.put('/', protect, controller.updateUser)
 
 

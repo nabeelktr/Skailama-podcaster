@@ -27,7 +27,15 @@ export class Repository {
     try {
       return await this.model.findOne(filterQuery);
     } catch (e) {
-      throw new DBConnectionError(e.message);
+      throw new DBConnectionError();
+    }
+  }
+
+  async findById(id) {
+    try {
+      return await this.model.findById(id);
+    } catch (e) {
+      throw new DBConnectionError();
     }
   }
 
@@ -38,11 +46,40 @@ export class Repository {
         this.logger.warn(`Document not found with id: ${id}`);
         throw new Error('Document not found.');
       }
-      return {msg: 'updated successfully'};
+      return { msg: 'updated successfully' };
     } catch (e) {
-      throw new DBConnectionError(e.message);
+      throw new DBConnectionError();
     }
   }
 
+  async deleteById(id) {
+    try {
+      const deletedDocument = await this.model.findByIdAndDelete(id).lean();
+      if (!deletedDocument) {
+        this.logger.warn(`Document not found with id: ${id}`);
+        throw new Error('Document not found.');
+      }
+      return
+    }
+    catch (e) {
+      throw new DBConnectionError();
+    }
+  }
+
+  async upsert(
+    filterQuery,
+    document
+  ) {
+    try {
+      return this.model.findOneAndUpdate(filterQuery, document, {
+        lean: true,
+        upsert: true,
+        new: true,
+      });
+    }
+    catch (e) {
+      throw new DBConnectionError();
+    }
+  }
 
 }

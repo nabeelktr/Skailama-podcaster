@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export const uploadSchema = new mongoose.Schema({
-  uploadName: {
+  name: {
     type: String,
     required: [true, "Please enter the upload name"],
   },
@@ -18,6 +18,6 @@ export const uploadSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-const Upload = mongoose.model("Upload", uploadSchema);
+const UploadModel = mongoose.model("Upload", uploadSchema);
 
-export { Upload, uploadSchema};
+export { UploadModel };
